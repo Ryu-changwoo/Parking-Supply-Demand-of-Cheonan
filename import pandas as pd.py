@@ -16,5 +16,9 @@ grouped = df.groupby(['연도', '단속동']).size().reset_index(name='단속건
 # 결측치 제거
 grouped = grouped.dropna(subset=['단속동'])
 
-import caas_jupyter_tools
-caas_jupyter_tools.display_dataframe_to_user(name="연도별 행정동별 단속 건수 집계표", dataframe=grouped)
+import matplotlib.pyplot as plt
+
+df.groupby(["연도", "단속동"]).size().unstack().T.plot(kind="bar", stacked=True, figsize=(12,6))
+plt.ylabel("단속 건수")
+plt.title("연도별 행정동 단속 건수")
+plt.show()
